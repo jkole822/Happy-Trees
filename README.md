@@ -24,8 +24,11 @@
 
 ### Large Screen Landing Page
 
-![Small Screen Landing Page](public/assets/images/small-screen-landing.png)
 ![Large Screen Landing Page](public/assets/images/large-screen-landing.png)
+
+### Small Screen Landing Page
+
+![Small Screen Landing Page](public/assets/images/small-screen-landing.png)
 
 ## Usage
 
