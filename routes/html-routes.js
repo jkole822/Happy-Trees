@@ -1,8 +1,9 @@
 const db = require("../models");
 const requireLogin = require("../middleware/requireLogin");
+const redirectDashboard = require("../middleware/redirectDashboard");
 
 module.exports = app => {
-	app.get("/", (req, res) => {
+	app.get("/", redirectDashboard, (req, res) => {
 		res.render("landing");
 	});
 
