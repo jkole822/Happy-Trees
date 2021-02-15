@@ -5,6 +5,7 @@
 ![Languages](https://img.shields.io/github/languages/count/mindyratcliff/project2) ![Language](https://img.shields.io/github/languages/top/Mindyratcliff/Project2) ![MySQL](https://img.shields.io/badge/dependency-mysql-blue) ![Node](https://img.shields.io/badge/dependency-node-brightgreen) ![Travis](https://travis-ci.com/Mindyratcliff/Project2.svg?branch=main)
 
 ## Table of Contents
+
 1.) [Usage](#usage)
 
 2.) [Installation](#installation)
@@ -29,16 +30,12 @@ To use this:
 
 You will need to have MySQL installed.
 
-![Landing](public/assets/images/landing-screenshot.png)
-
-![Dashboard](public/assets/images/dashboard-screenshot.png)
-
 Happy Trees can be accessed here:
 [Happy Trees](https://guarded-ravine-40907.herokuapp.com)
 
 ## Installation
 
-The user will need to have Node.js, ExpressJS, Handlebars, and MySQL installed. MySQL Workbench is especially useful to access schema. Be sure to npm i to install all dependencies! All dependencies are listed in package.json. 
+The user will need to have Node.js, ExpressJS, Handlebars, and MySQL installed. MySQL Workbench is especially useful to access schema. Be sure to npm i to install all dependencies! All dependencies are listed in package.json.
 
 ## Credits
 
@@ -61,7 +58,6 @@ Web.dev [Storage](https://web.dev/storage-for-the-web/)
 ESLint [ESLint](https://eslint.org)
 
 Travis CI [Travis](https://travis-ci.com)
-
 
 ## Contributing
 
@@ -155,9 +151,9 @@ Mindy Ratcliff - mindyratcliff - mindy.ratcliff@gmail.com
 
 Simon Ziccardi - sziccardi1998 - sziccardifullstack@gmail.com
 
-
 ## License
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 MIT License
 

@@ -1,125 +1,157 @@
-$(document).ready(() => sessionStorage.setItem('edit', false));
-const loadImage = new Event('load-image');
-const clearCanvas = new Event('clear-canvas');
-const saveButton = $('#save-drawing');
-const titleEl = $('#drawing-title');
+$(document).ready(() => {
+	M.AutoInit();
+	sessionStorage.setItem("edit", false);
 
-// creating and naming new list items.
-$('#saveButtonModal').on('click', () => {
-    const title = titleEl.val().trim();
-    const body = window._json;
-    const editMode = sessionStorage.getItem('edit');
-
-    if (editMode !== 'true') {
-        $.post('/api/drawings', { title, body }).then(data => {
-            createElement(data.title, data.id);
-            document.dispatchEvent(clearCanvas);
-        });
-    } else if (editMode) {
-        const id = sessionStorage.getItem('current-drawing');
-
-        $.ajax({
-            url: `/api/drawings/${id}`,
-            data: { title, body },
-            type: 'PUT',
-        }).then(() => {
-            $(`[data-id=${id}]`).children('a.alert-link').text(title);
-            setSession(false);
-            document.dispatchEvent(clearCanvas);
-        });
-    }
-    titleEl.val('');
+	if ($(window).width() >= 600) {
+		$("#drawing-list-section").height($("#canvas-section").height());
+	} else {
+		$("#drawing-list-section").height(150);
+		console.log($("#drawing-list-section").height());
+	}
 });
 
-$('#clearButton').on('click', () => {
-    const clearCanvas = new Event('clear-canvas');
-    setSession(false);
-    document.dispatchEvent(clearCanvas);
+$(window).resize(() => {
+	$("#myCanvas").css({ width: "100%", height: "100%" });
+
+	if ($(window).width() >= 600) {
+		$("#drawing-list-section").height($("#canvas-section").height());
+	} else {
+		$("#drawing-list-section").height(150);
+		console.log($("#drawing-list-section").height());
+	}
 });
 
-//deleting list item
-$(document).on('click', '.delete-note', event => {
-    event.stopPropagation();
-    let $this = event.currentTarget;
-    let drawingId = $this.dataset.id;
-    let listEl = $this.parentElement.parentElement;
+const loadImage = new Event("load-image");
+const clearCanvas = new Event("clear-canvas");
+const saveButton = $("#saveButton");
+const titleEl = $("#drawing-title");
+const canvasDrawingTitle = $("#canvas-drawing-title");
 
-    //delete request
-    $.ajax({
-        url: '/api/drawings/' + drawingId,
-        type: 'DELETE',
-    }).then(() => {
-        listEl.remove();
+// ---------- EVENT HANDLERS ------------->
+// Creating new drawings; reference createElement() below.
+$("#saveButtonModal").on("click", () => {
+	const title = titleEl.val().trim();
+	const body = window._json;
+	const editMode = sessionStorage.getItem("edit");
 
-        // if the current active drawing is deleted, clear the canvas and change the session values
-        if (drawingId === sessionStorage.getItem('current-drawing')) {
-            document.dispatchEvent(clearCanvas);
-            setSession(false);
-        }
-    });
+	if (editMode !== "true") {
+		$.post("/api/drawings", { title, body }).then(data => {
+			createElement(data.title, data.id);
+			// Reload if no drawings were previously saved
+			if (!$("#drawing-list").length) {
+				location.reload();
+			}
+			document.dispatchEvent(clearCanvas);
+		});
+	} else if (editMode) {
+		const id = sessionStorage.getItem("current-drawing");
+
+		$.ajax({
+			url: `/api/drawings/${id}`,
+			data: { title, body },
+			type: "PUT",
+		}).then(() => {
+			$(`[data-id=${id}]`)
+				.attr("data-title", title)
+				.children("span")
+				.text(title);
+
+			setSession(false);
+			canvasDrawingTitle.text("");
+			document.dispatchEvent(clearCanvas);
+		});
+	}
+	titleEl.val("");
 });
 
-$(document).on('click', '#drawing-list li', event => {
-    let $this = $(event.currentTarget);
-    const id = $this.attr('data-id');
-    const title = $this.attr('data-title');
-
-    setSession(true, title, id);
-
-    $.get(`/api/drawings/${id}`, data => {
-        window._json = data.body;
-        document.dispatchEvent(loadImage);
-    });
+// Clear the canvas
+$("#clearButton").on("click", () => {
+	const clearCanvas = new Event("clear-canvas");
+	canvasDrawingTitle.text("");
+	setSession(false);
+	document.dispatchEvent(clearCanvas);
 });
 
+// Deleting drawings
+$(document).on("click", ".delete-note", event => {
+	event.stopPropagation();
+	let $this = event.currentTarget;
+	let drawingId = $this.dataset.id;
+	let listEl = $this.parentElement;
+
+	$.ajax({
+		url: "/api/drawings/" + drawingId,
+		type: "DELETE",
+	}).then(() => {
+		listEl.remove();
+
+		// Reload if no drawings remain in the list;
+		if (!$("#drawing-list").children().length) {
+			location.reload();
+		} else if (drawingId === sessionStorage.getItem("current-drawing")) {
+			// Clear session and drawing title if rendered drawing is deleted
+			canvasDrawingTitle.text("");
+			document.dispatchEvent(clearCanvas);
+			setSession(false);
+		}
+	});
+});
+
+// Render drawing to canvas
+$(document).on("click", "#drawing-list li", event => {
+	let $this = $(event.currentTarget);
+	const id = $this.attr("data-id");
+	const title = $this.attr("data-title");
+	canvasDrawingTitle.text(title);
+	setSession(true, title, id);
+
+	$.get(`/api/drawings/${id}`, data => {
+		window._json = data.body;
+		document.dispatchEvent(loadImage);
+	});
+});
+
+// ---------- FUNCTIONS ------------->
 const createElement = (title, id) => {
-    const $li = $('<li>')
-        .addClass('list-group-item')
-        .attr('data-id', id)
-        .attr('data-title', title);
-    const $a = $('<a>').text(title).attr('href', '#').attr('class', 'alert-link');
-    const $a2 = $('<a>').attr('href', '#');
-    const $i = $('<i>')
-        .addClass('fas fa-trash-alt float-right text-secondary delete-note')
-        .attr('data-id', id)
-        .attr('data-title', title);
+	const $li = $("<li>")
+		.attr("data-id", id)
+		.attr("data-title", title)
+		.addClass("list-item");
+	const $span = $("<span>").addClass("lobster").text(title);
 
-    $a2.append($i);
-    $li.append($a).append($a2);
-    $('#drawing-list').append($li);
-};
+	const $i = $("<i>")
+		.addClass("fas fa-trash-alt delete-note right")
+		.attr("data-id", id)
+		.attr("data-title", title);
 
-// updates an element's data-title and data-id
-const updateElement = (element, title, id) => {
-    let $element = $(element);
-    $element.attr('data-id', id).attr('data-title', title);
+	$li.append($span).append($i);
+	$("#drawing-list").append($li);
 };
 
 const setSession = (edit, title, id) => {
-    sessionStorage.setItem('edit', edit);
+	sessionStorage.setItem("edit", edit);
 
-    if ((title && !id) || (!title && id)) {
-        console.error(
-            'setSession() cannot have only a title or only an id. Must have both or none'
-        );
-    } else if (edit) {
-        sessionStorage.setItem('current-title', title);
-        sessionStorage.setItem('current-drawing', id);
-        titleEl.val(title);
-        saveButton.text('Update');
-    } else if (!edit && title && id) {
-        sessionStorage.setItem('current-title', title);
-        sessionStorage.setItem('current-drawing', id);
-        titleEl.val('');
-        saveButton.text('Save');
-    } else {
-        sessionStorage.setItem('current-title', null);
-        sessionStorage.setItem('current-drawing', null);
-        titleEl.val('');
-        saveButton.text('Save');
-    }
+	if ((title && !id) || (!title && id)) {
+		console.error(
+			"setSession() cannot have only a title or only an id. Must have both or none"
+		);
+	} else if (edit) {
+		sessionStorage.setItem("current-title", title);
+		sessionStorage.setItem("current-drawing", id);
+		titleEl.val(title);
+		saveButton.html(`
+		<i class="material-icons right" style='margin-right: 15px'>save</i>Update`);
+	} else if (!edit && title && id) {
+		sessionStorage.setItem("current-title", title);
+		sessionStorage.setItem("current-drawing", id);
+		titleEl.val("");
+		saveButton.html(`
+		<i class="material-icons right" style='margin-right: 15px'>save</i>Save`);
+	} else {
+		sessionStorage.setItem("current-title", null);
+		sessionStorage.setItem("current-drawing", null);
+		titleEl.val("");
+		saveButton.html(`
+		<i class="material-icons right" style='margin-right: 15px'>save</i>Save`);
+	}
 };
-
-$(window).resize(() => {
-    $('#myCanvas').css({ width: '100%', height: '100%' });
-});

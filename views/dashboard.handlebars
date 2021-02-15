@@ -1,71 +1,117 @@
-<!-- navbar -->
-<nav class="navbar navbar-light ">
-    <div class="container-fluid">
-        <a class="navbar-brand " href="#">
-            <span class="title">Happy</span>
-            <img src="../assets/images/justTree.jpg" alt="logo" class="align-middle">
-            <span class="title">Trees</span>
-        </a>
-    </div>
-</nav>
+<main>
+    {{!-- Navbar --}}
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class='brand-logo fredericka'>
+                Happy Trees
+            </a>
+            <a href="#" data-target="mobile-sidebar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/auth/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
 
-{{!-- main content --}}
-<div class="row" id='dashboard-content'>
-    <!-- our side bar saved list items with the delete icons -->
-    <div class="sidebar col-3">
-        <h2 style="margin-left: 8%;">Saved Work</h2>
-        <ul id="drawing-list" class="list-group">
-            <!--list items will be created dynamically with jquery-->
-            {{#each drawings}}
+    {{!-- Mobile Sidebar --}}
+    <ul class="sidenav" id="mobile-sidebar">
+        <li><a href="/auth/logout">Logout</a></li>
+    </ul>
 
-            <li class="list-group-item" data-id="{{this.dataValues.id}}" data-title="{{this.dataValues.title}}">
-                <a href="#" class="alert-link">{{this.dataValues.title}}</a>
-                <a href="#"><i class='fas fa-trash-alt float-right text-secondary delete-note'
-                        data-id="{{this.dataValues.id}}"></i></a>
-            </li>
-
-            {{/each}}
-        </ul>
-    </div>
-
-    <!-- our canvas from paperjs  -->
-    <div class="art col-9" id="main">
-        <div class="canvas col">
+    {{!-- Content --}}
+    {{#unless drawings}}
+    <div class='row'>
+        {{!-- Canvas --}}
+        <div class="col s12">
+            <h2 class='fredericka center-align'>Canvas</h2>
             <canvas id="myCanvas"></canvas>
         </div>
     </div>
-</div>
+    {{/unless}}
 
-{{!-- logout button moved to the buttom of page --}}
-<div class="row" id="buttonGroup">
-    <div class="col-2">
-        <a href="/auth/logout" class="logout btn btn-warning" id="logout">Logout</a>
-    </div>
-    <div class="col-2">
-        <button id="save-drawing" type="button" class="save btn btn-success" data-bs-toggle="modal"
-            data-bs-target="#titleModal">Save</button>
-    </div>
-    <div class="col-2">
-        <button type="button" id="clearButton" class="clear btn btn-warning"> Clear</button>
-    </div>
-</div>
+    {{#if drawings}}
+    <div class='row'>
+        {{!-- Drawing List --}}
+        <div id='drawing-list-section' class="col m3 s12">
+            <h2 class='fredericka big-text center-align'>Saved Drawings</h2>
+            <ul id="drawing-list">
+                {{#each drawings}}
+                <li class='list-item' data-id="{{this.dataValues.id}}" data-title="{{this.dataValues.title}}">
+                    <span class='lobster'>{{this.dataValues.title}}</span>
+                    <i class='fas fa-trash-alt delete-note right' data-id="{{this.dataValues.id}}"></i></a>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
 
-<!-- Modal -->
-<div class="modal fade" id="titleModal" tabindex="-1" aria-labelledby="titleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="titleModalLabel">Drawing Title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        {{!-- Canvas --}}
+        <div id='canvas-section' class="col m9 s12">
+            <h2 class='fredericka center-align big-text'>Canvas</h2>
+            <h3 id='canvas-drawing-title' class='lobster center-align small-text'></h3>
+            <canvas id="myCanvas"></canvas>
+        </div>
+    </div>
+    {{/if}}
+
+    {{!-- Buttons --}}
+    <div class='row'>
+        {{!-- Modal Trigger --}}
+        <a data-target="modal1" id='saveButton'
+            class="modal-trigger waves-effect waves-light btn col m2 offset-m3 s8 offset-s2"><i
+                class="material-icons right" style='margin-right: 15px'>save</i>Save</a>
+        <a id='clearButton' class="waves-effect waves-light btn col m2 offset-m2 s8 offset-s2"><i
+                class="material-icons right" style='margin-right: 15px'>clear</i>Clear</a>
+    </div>
+
+
+</main>
+
+{{!-- Sticky Footer --}}
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col m6 s12 center-align">
+                <div class='row'>
+                    <h5 class="white-text col s12 fredericka">OSU Bootcamp 2020</h5>
+                    <div class='col s12'>
+                        <a href="https://github.com/jkole822/Happy-Trees"><i
+                                class="icon fab fa-github white-text big-text"></i></a>
+                    </div>
+                </div>
+
             </div>
-            <div class="modal-body">
-                <input id='drawing-title' class='input-group' autocomplete='off' />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id='saveButtonModal' type="button" class="btn btn-primary"
-                    data-bs-dismiss="modal">Submit</button>
+            <div class="col m6 s12 center-align">
+                <h5 class="white-text fredericka">Contributors</h5>
+                <ul>
+                    <li class='center-align'><a class="grey-text text-lighten-3 lobster"
+                            href="https://github.com/jkole822" target='_blank'>Kole
+                            Gasior</a></li>
+                    <li class='center-align'><a class="grey-text text-lighten-3 lobster"
+                            href="https://github.com/jesusefraingonzalez" target='_blank'>Efraín González</a></li>
+                    <li class='center-align'><a class="grey-text text-lighten-3 lobster"
+                            href="https://github.com/Mindyratcliff" target='_blank'>Mindy Ratcliff</a></li>
+                    <li class='center-align'><a class="grey-text text-lighten-3 lobster"
+                            href="https://github.com/sziccardi1998" target='_blank'>Simon Ziccardi</a></li>
+                    <li class='center-align'><a class="grey-text text-lighten-3 lobster"
+                            href="https://github.com/abdinajibliban" target='_blank'>Abdinajib Liban</a></li>
+                </ul>
             </div>
         </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container center-align">
+            © 2021 Happy Trees
+        </div>
+    </div>
+</footer>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Drawing Title</h4>
+        <input id='drawing-title' class='input-field' autocomplete='off' />
+    </div>
+    <div class="modal-footer">
+        <button class="btn modal-close">Close</button>
+        <button id='saveButtonModal' class="btn modal-close">Submit</button>
     </div>
 </div>

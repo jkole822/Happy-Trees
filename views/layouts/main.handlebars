@@ -5,37 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Happy Trees</title>
-    <!-- main CSS style sheet -->
-    <link rel="stylesheet" href="./assets/css/styles.css">
+    {{!-- Google Fonts --}}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Lobster+Two&display=swap"
+        rel="stylesheet">
 
-    <!-- font awsome -->
+    {{!-- Materialize CSS --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
 
-    <!-- bootstrap links -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"></script>
-
-
-    <link href="./assets/css/links.css" rel="stylesheet">
-
-    <!-- jquery cdn -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
-    <!-- PaperJs Canvas and Script -->
+    <!-- PaperJS -->
     <script type="text/javascript" src="./paperjs/docs/assets/js/paper.js"></script>
     <script type="text/paperscript" canvas="myCanvas" data-paper-ingore="true">
         var path;
 
         var textItem = new PointText({
-        content: 'Click and drag to draw your work of Art.',
         point: new Point(30, 40),
         fillColor: 'black',
         });
@@ -96,7 +87,13 @@
 
 <body>
     {{{ body }}}
-    <!-- Main script for JS code -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    {{!-- Materialize CSS JavaScript --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    {{!-- Front End JavaScript --}}
     <script type="text/javascript" src="./assets/js/index.js"></script>
 </body>
 

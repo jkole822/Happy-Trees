@@ -1,0 +1,69 @@
+body {
+	font-size: 16px;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+#logo-image {
+	width: 50px;
+}
+
+.big-text {
+	font-size: 2rem;
+}
+
+.small-text {
+	font-size: 1.25rem;
+}
+
+.flex-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.align-center {
+	display: flex;
+	align-items: center;
+}
+
+.fredericka {
+	font-family: "Fredericka the Great", cursive;
+}
+
+.lobster {
+	font-family: "Lobster Two", cursive;
+}
+
+.list-item {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+#drawing-list {
+	cursor: pointer;
+}
+
+#myCanvas {
+	width: 100%;
+	height: 100%;
+	border: 2px solid black;
+	border-radius: 10px;
+}
+
+#drawing-list-section {
+	overflow: scroll;
+}
+
+@media only screen and (max-width: 600px) {
+	#drawing-list {
+		width: 66%;
+		margin: 0 auto;
+	}
+}
