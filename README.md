@@ -6,17 +6,26 @@
 
 ## Table of Contents
 
-1.) [Usage](#usage)
+1.) [Views](#views)
 
-2.) [Installation](#installation)
+2.) [Usage](#usage)
 
-3.) [Credits](#credits)
+3.) [Installation](#installation)
 
-4.) [Contributing](#contributing)
+4.) [Credits](#credits)
 
-5.) [Questions/Contact](#questions/contact)
+5.) [Contributing](#contributing)
 
-6.) [License](#license)
+6.) [Questions/Contact](#questions/contact)
+
+7.) [License](#license)
+
+## Views
+
+### Large Screen Landing Page
+
+![Small Screen Landing Page](public/assets/images/small-screen-landing.png)
+![Large Screen Landing Page](public/assets/images/large-screen-landing.png)
 
 ## Usage
 
