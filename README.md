@@ -31,7 +31,7 @@ To use this:
 You will need to have MySQL installed.
 
 Happy Trees can be accessed here:
-[Happy Trees](https://guarded-ravine-40907.herokuapp.com)
+[Happy Trees](https://happy-trees.herokuapp.com/)
 
 ## Installation
 
